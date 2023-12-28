@@ -1,0 +1,60 @@
+<p-card>
+    <p-header>רשימת עובדים ומנויים</p-header>
+    <p-dialog header="הוספת מנוי לעובד" *ngIf="display" [(visible)]="display">
+        <jer-employee-subscription-details (afterSubmit)="afterSubmit($event)"></jer-employee-subscription-details>
+    </p-dialog>
+
+
+    <p-table #dt1 [columns]="EmployeeSubscriptionsColumns" [value]="employeeSubScriptionsArry" [paginator]="true"
+        [rows]="10" [showCurrentPageReport]="true"
+        currentPageReportTemplate="מציג את רשומות  {first} עד {last}, מתוך  {totalRecords} רשומות"
+        [rowsPerPageOptions]="[10,25,50]" dataKey="identityNumber" [tableStyle]="{'min-width': '60rem'}">
+        <ng-template pTemplate="caption">
+            <div class="flex">
+                <button pButton pRipple label="הוספת חדש" (click)="showDialog()"></button>
+                <button pButton label="נקה סינונים" class="p-button-outlined mr-2" icon="pi pi-filter-slash"
+                    (click)="dt1.clear()"></button>
+            </div>
+        </ng-template>
+
+        <ng-template pTemplate="header" let-columns>
+            <tr>
+                <th>עריכה</th>
+                <th *ngFor="let column of columns" [pSortableColumn]="column.key">{{column.value}}
+                    <p-sortIcon [field]="column.key"></p-sortIcon>
+                </th>
+            </tr>
+            <tr>
+                <th></th>
+                <th *ngFor="let column of columns">
+                    <p-columnFilter [field]="column.key" matchMode="contains" [showMenu]="false">
+                        <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                            <input [type]="column.type ?? 'text'" pInputText [ngModel]="value"
+                                (ngModelChange)="filter($event)">
+                        </ng-template>
+                    </p-columnFilter>
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-sub let-columns="columns" let-expanded="expanded">
+            <tr>
+                <td>
+                    <button type="button" pButton pRipple [pRowToggler]="sub"
+                        class="p-button-text p-button-rounded p-button-plain"
+                        [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-left'" (click)="showEmlpoyeeSubscription(sub.identityNumber)"></button>
+                </td>
+                <td *ngFor="let col of columns">
+                    <ng-container *ngIf="!col.isDate">{{sub[col.key]}}</ng-container>
+                    <ng-container *ngIf="col.isDate">{{sub[col.key] | date: 'dd/MM/y'}}</ng-container>
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="rowexpansion" let-sub *ngIf="!display">
+            <td colspan="7">
+                <br>
+                <jer-employee-subscription-details [currentSub]="sub.identityNumber" (afterSubmit)="afterSubmit($event)">
+                </jer-employee-subscription-details>
+            </td>
+        </ng-template>
+    </p-table>
+</p-card>

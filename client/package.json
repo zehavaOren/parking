@@ -1,0 +1,58 @@
+{
+  "name": "client",
+  "version": "0.0.0",
+  "scripts": {
+    "ng": "ng",
+    "start": "ng build --watch --configuration develotpment",
+    "start-iis": "ng build --base-href /backend/ --watch",
+    "build": "ng build",
+    "prod": "ng build --configuration production --aot=true --build-optimizer=true",
+    "testing": "ng build --configuration testing --aot=true --build-optimizer=true",
+    "staging": "ng build --configuration staging --aot=true --build-optimizer=true",
+    "lint": "ng lint"
+  },
+  "pre-commit": "lint",
+  "private": true,
+  "dependencies": {
+    "@angular-eslint/schematics": "^1.0.0",
+    "@angular/animations": "^14.2.12",
+    "@angular/common": "^14.2.0",
+    "@angular/compiler": "^14.2.0",
+    "@angular/core": "^14.2.0",
+    "@angular/forms": "^14.2.0",
+    "@angular/platform-browser": "^14.2.0",
+    "@angular/platform-browser-dynamic": "^14.2.0",
+    "@angular/router": "^14.2.0",
+    "@ngx-translate/core": "^14.0.0",
+    "@ngx-translate/http-loader": "^7.0.0",
+    "bootstrap": "^4.0.0",
+    "file-saver": "^2.0.2",
+    "html-to-pdfmake": "^2.4.20",
+    "jspdf": "^2.5.1",
+    "moment": "^2.29.4",
+    "pdfmake": "^0.2.7",
+    "primeflex": "^3.3.0",
+    "primeicons": "^6.0.1",
+    "primeng": "^14.2.3",
+    "rxjs": "~7.5.0",
+    "tslib": "^2.3.0",
+    "xlsx": "^0.18.5",
+    "zone.js": "~0.11.4"
+  },
+  "devDependencies": {
+    "@angular-devkit/build-angular": "^14.2.3",
+    "@angular/cli": "~14.2.3",
+    "@angular/compiler-cli": "^14.2.0",
+    "@types/file-saver": "^2.0.5",
+    "pre-commit": "^1.2.2",
+    "eslint-plugin-json": "^3.1.0",
+    "lint-staged": "^10.5.1",
+    "tslint": "~6.1.0",
+    "typescript": "~4.7.2"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  }
+}

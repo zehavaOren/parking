@@ -1,0 +1,62 @@
+<p-card>
+    <p-header>לקוחות הממתינים למקום חניה</p-header>
+    <p-table #dt1 [columns]="columns" [value]="data" dataKey="identityNumber" [tableStyle]="{'min-width': '60rem'}"
+        (onFilter)="handleFilter($event,dt1.totalRecords)">
+        <ng-template pTemplate="caption">
+            <div class="flex">
+                <button pButton label="נקה סינונים" class="p-button-outlined" icon="pi pi-filter-slash"
+                    (click)="clear(dt1)"></button>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header" let-columns>
+            <tr>
+                <th>עריכה</th>
+                <th *ngFor="let column of columns" [pSortableColumn]="column.key">{{column.value}}
+                    <p-sortIcon [field]="column.key"></p-sortIcon>
+                </th>
+                <th>מחיקה</th>
+            </tr>
+            <tr>
+                <th></th>
+                <th *ngFor="let column of columns">
+                    <p-columnFilter [field]="column.key" matchMode="contains" [showMenu]="false">
+                        <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                            <input [type]="column.type ?? 'text'" pInputText [ngModel]="value"
+                                (ngModelChange)="filter($event)">
+                        </ng-template>
+                    </p-columnFilter>
+                </th>
+                <th></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-WaitingParking let-columns="columns" let-expanded="expanded">
+            <tr>
+                <td>
+                    <button type="button" pButton pRipple [pRowToggler]="WaitingParking"
+                        class="p-button-text p-button-rounded p-button-plain"
+                        [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-left'" (click)="showEmlpoyeeSubscription(WaitingParking.identityNumber)"></button>
+                </td>
+                <td *ngFor="let col of columns">
+                    <ng-container *ngIf="!col.isDate">{{WaitingParking[col.key]}}</ng-container>
+                    <ng-container *ngIf="col.isDate">{{WaitingParking[col.key] | date: 'dd/MM/y'}}</ng-container>
+                </td>
+                <td>
+                    <span class="p-buttonset">
+                        <button label="מחק" type="button" pButton pRipple (click)="deleteConfirm(WaitingParking)"
+                            icon="pi pi-trash" class="ui-button-warning"></button>
+                    </span>
+                </td>
+            </tr>
+
+        </ng-template>
+
+        <ng-template pTemplate="rowexpansion" let-WaitingParking>
+            <td colspan="7">
+                <br>
+                <jer-employee-subscription-details [currentSub]="WaitingParking.identityNumber"
+                    (afterSubmit)="afterSubmit($event)"></jer-employee-subscription-details>
+            </td>
+        </ng-template>
+    </p-table>
+</p-card>
+<jer-delete *ngIf="showConfirmDel" (confirm)="delete($event)" (cancel)="showConfirmDel=false"></jer-delete>

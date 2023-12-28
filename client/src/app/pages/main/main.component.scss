@@ -1,0 +1,122 @@
+@import "src/styles/variables";
+
+:host {
+    display: block;
+    position: relative;
+
+    .main-page {
+        margin: 7rem 0 2rem;
+
+        &__toolbar {
+            position: fixed;
+            top: 0;
+            right: 0;
+            left: 0;
+            width: 100%;
+            background-color: $primaryColor;
+            z-index: 999;
+
+            .menu-item {
+                .menu-item__text {
+                    &.search {
+                        cursor: pointer;
+                    }
+                }
+            }
+
+            #roleTypeID {
+                position: absolute;
+                top: -10px;
+                right: -180px;
+            }
+        }
+
+        .header-page {
+            color: #043c66;
+            border-bottom: 3px solid #043c66;
+        }
+    }
+
+    ::ng-deep {
+        .p-toolbar {
+            border-radius: 0;
+            background-color: transparent;
+            padding: 0.5rem 0;
+        }
+
+        p-sidebar {
+            text-align: center;
+            font-size: 1.0625rem;
+            //font-weight: $fontWeightBold;
+
+            > div.sidebar,
+            > div.search-sidebar {
+                top: 56px;
+            }
+
+            > div.search-sidebar {
+                text-align: right;
+
+                &.p-sidebar-top {
+                    height: auto;
+                    padding: 0;
+                }
+
+                div.p-sidebar-content {
+                    overflow: visible;
+                }
+            }
+
+            div.p-sidebar-content {
+                overflow-x: hidden;
+            }
+
+            .side-menu-item {
+                color: $primaryColor;
+                cursor: pointer;
+
+                &:hover {
+                    color: $accentColor;
+                }
+            }
+        }
+    }
+}
+
+::ng-deep {
+    .p-panelmenu .p-panelmenu-panel {
+        box-shadow: none;
+        .p-panelmenu-header-link {
+            flex-direction: row-reverse;
+            justify-content: start;
+            &:hover {
+                background-color: transparent !important;
+            }
+            .p-menuitem-text {
+                color: $primaryColor;
+            }
+            .p-panelmenu-icon {
+                margin-right: 0;
+                margin-left: 1rem;
+                transform: rotateY(180deg);
+                color: $primaryColor;
+            }
+        }
+
+        .p-panelmenu-content .p-menuitem .p-menuitem-link {
+            margin-right: 2rem;
+            .p-menuitem-text {
+                color: $primaryColor;
+            }
+            &:hover {
+                background-color: transparent;
+                .p-menuitem-text {
+                    color: $accentColor;
+                }
+            }
+            &.p-menuitem-link-active .p-menuitem-text {
+                color: $accentColor;
+            }
+        }
+    }
+}

@@ -1,0 +1,41 @@
+.p-dialog {
+    min-width: 50vw;
+    min-height: 520px;
+    overflow: auto;
+    .p-dialog-header {
+        .p-dialog-header-icon {
+            color: rgba(#fff, 0.78);
+
+            &:enabled:hover {
+                color: #fff;
+            }
+        }
+    }
+
+    .p-dialog-content {
+        flex-grow: 1;
+    //   overflow:visible ;
+        overflow-x: auto;
+         overflow-y: auto;
+    }
+
+    .p-dialog-footer {
+        display: flex;
+        justify-content: flex-end;
+        
+
+        &:before {
+            content: "";
+            display: block;
+            position: absolute;
+            top: 0;
+            right: nth($dialogFooterPadding, 2);
+            width: calc(100% - #{2 * nth($dialogFooterPadding, 2)});
+            border-top: solid 1px $gray-200;
+        }
+
+        button {
+            margin: 0;
+        }
+    }
+}

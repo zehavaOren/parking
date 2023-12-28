@@ -1,0 +1,113 @@
+.p-datatable,
+.p-treetable {
+    &-thead > tr > th,
+    &-tfoot > tr > td,
+    &-tbody > tr > td {
+        @include rtl() {
+            text-align: right;
+        }
+    }
+
+    td,
+    th {
+        vertical-align: top;
+    }
+    // td {
+    //     overflow: hidden;
+    // }
+}
+.p-datatable {
+    &.p-datatable-gridlines {
+        .p-datatable-thead > tr > th {
+            border-width: 0;
+        }
+        .p-datatable-tbody > tr > td {
+            border-width: 4px 0px 0;
+        }
+
+        .p-datatable-thead,
+        .p-datatable-tbody {
+                border-right: solid 1px #dbdbdb;
+                border-left: solid 1px #dbdbdb;
+                border-bottom: solid 1px #dbdbdb;
+        }
+    }
+
+    &-thead > tr > th,
+    &-tfoot > tr > td,
+    &-tbody > tr > td {
+        position: relative;
+
+        &.with-divider-cell {
+            @include rtl() {
+                padding-right: calc(#{$divider-cell-width} + 0.25rem + 2px); // 0.25rem @see $tableHeaderCellPadding
+
+                &:before {
+                    content: "";
+                    display: table-cell;
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+                    width: $divider-cell-width;
+                    height: 100%;
+                    background-color: #fff;
+                    border-left: solid 1px #dbdbdb; //$grid-border;
+                    border-right: solid 1px #dbdbdb; //$grid-border;
+                }
+            }
+        }
+    }
+
+    &-thead > tr.main-row th {
+        background-color: $accentColor;
+        color: #fff;
+        text-align: center;
+    }
+
+    .p-sortable-column .p-sortable-column-icon {
+        margin-right: $inlineSpacing;
+        margin-left: 0;
+    }
+
+    // special rows
+    &-tbody > tr {
+        &.accentuated {
+            font-weight: $fontWeightBold;
+        }
+        &.danger-accentuated {
+            td {
+                background-color: rgba($dangerColor, 0.08);
+            }
+        }
+
+        &.success-accentuated {
+            td {
+                background-color: rgba($successColor, 0.08);
+            }
+        }
+    }
+    .p-datatable-loading-overlay{
+        background-color:rgb(0 0 0 / 40%);;
+        .p-datatable-loading-icon{
+            font-size: 8rem;
+            color: #043c66;
+        }
+    }
+    
+}
+
+// inputs inside datatables
+p-table {
+    .p-inputtext {
+        border-radius: 0;
+    }
+    .p-dropdown {
+        &,
+        .p-dropdown-trigger,
+        .p-dropdown-panel,
+        .p-dropdown-panel .p-dropdown-header,
+        .p-dropdown-items .p-dropdown-item {
+            border-radius: 0;
+        }
+    }
+}

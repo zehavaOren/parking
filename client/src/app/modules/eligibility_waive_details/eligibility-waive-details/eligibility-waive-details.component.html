@@ -1,0 +1,134 @@
+<!-- <br> -->
+<!-- <p-card> -->
+<form [formGroup]="form" (ngSubmit)="saveForm()" class="p-5">
+    <div class="row">
+        <div class="col-lg-3 field">
+            <span class="p-float-label">
+                <input (blur)="getDataById()" id="firstInput" class="inputs" type="number" pInputText name=""
+                    formControlName="identityNumber" />
+                <small
+                    *ngIf="form.controls['identityNumber'].errors && form.controls['identityNumber'].errors['required']">
+                    *שדה חובה</small>
+                <label for="float-input">תעודת זהות </label>
+            </span>
+        </div>
+        <!-- <br> -->
+        <div class="col-lg-3 field">
+            <span class="p-float-label">
+                <input id="float-input" type="text" pInputText formControlName="firstName">
+                <small *ngIf="form.controls['firstName'].errors && form.controls['firstName'].errors['required']">
+                    *שדה חובה</small>
+                <label for="float-input"> שם פרטי</label>
+            </span>
+        </div>
+        <!-- <br> -->
+        <div class="col-lg-3 field">
+            <span class="p-float-label">
+                <input id="float-input" type="text" pInputText formControlName="lastName">
+                <small *ngIf="form.controls['lastName'].errors && form.controls['lastName'].errors['required']">
+                    *שדה חובה</small>
+                <label for="float-input">שם משפחה </label>
+            </span>
+        </div>
+        <!-- <br> -->
+        <!-- </div> -->
+        <div class="col-lg-3 field">
+            <span class="p-float-label">
+                <input id="float-input" type="text" pInputText formControlName="job">
+                <small *ngIf="form.controls['job'].errors && form.controls['job'].errors['required']">
+                    *שדה חובה</small>
+                <label for="float-input"> תפקיד
+                </label>
+            </span>
+        </div>
+        <!-- <br> -->
+        <div class="col-lg-3 field">
+            <span class="p-float-label">
+                <input id="float-input" type="text" pInputText formControlName="jobTitle">
+                <small *ngIf="form.controls['jobTitle'].errors && form.controls['jobTitle'].errors['required']">
+                    *שדה חובה</small>
+                <label for="float-input"> תיאור תפקיד
+                </label>
+            </span>
+        </div>
+        <!-- <br> -->
+        <div class="col-lg-3 field">
+            <p-dropdown optionLabel="value" [showClear]="true" [options]="optionsList[3]" optionValue="key"
+                formControlName="statusOrEligibility" placeholder="בחר מעמד\ זכאות">
+                <ng-template let-option pTemplate="item">
+                    <span [class]="'product-badge status-' + option.value">{{option.value}}</span>
+                </ng-template>
+            </p-dropdown>
+            <small
+                *ngIf="form.controls['statusOrEligibility'].errors && form.controls['statusOrEligibility'].errors['required']">
+                *שדה חובה</small>
+        </div>
+        <!-- <br> -->
+        <div class="col-lg-3 field">
+            <p-dropdown optionLabel="value" [showClear]="true" [options]="optionsList[2]" optionValue="key"
+                formControlName="parkingSpace" placeholder="בחר מקום חניה">
+                <ng-template let-option pTemplate="item">
+                    <span [class]="'product-badge status-' + option.value">{{option.value}}</span>
+                </ng-template>
+            </p-dropdown>
+            <small *ngIf="form.controls['parkingSpace'].errors && form.controls['parkingSpace'].errors['required']">
+                *שדה חובה</small>
+        </div>
+        <!-- <br> -->
+        <div class="col-lg-3 field">
+            <p-dropdown optionLabel="value" [showClear]="true" [options]="optionsList[4]" optionValue="key"
+                formControlName="reasonRejection" placeholder="בחר סיבת דחייה">
+                <ng-template let-option pTemplate="item">
+                    <span [class]="'product-badge status-' + option.value">{{option.value}}</span>
+                </ng-template>
+            </p-dropdown>
+            <small
+                *ngIf="form.controls['reasonRejection'].errors && form.controls['reasonRejection'].errors['required']">
+                *שדה חובה</small>
+        </div>
+        <br>
+        <div class="col-lg-3">
+            <div class="p-fluid field">
+                <span class="p-float-label">
+                    <p-calendar formControlName="dateAdded" appendTo="body"></p-calendar>
+                    <small *ngIf="form.controls['dateAdded'].errors && form.controls['dateAdded'].errors['required']">
+                        *שדה חובה</small>
+                    <label for="date added"> תאריך הוספה
+                    </label>
+                </span>
+            </div>
+        </div>
+        <!-- <br> -->
+        <!-- <div class="formgrid grid"> -->
+        <div class="col-lg-3 field">
+            <div class="field-checkbox">
+                <p-checkbox formControlName="isMunicipalityEmployee" [binary]="true" (onChange)="wingChange()">
+                </p-checkbox>
+                <label>עובד עיריה</label>
+            </div>
+        </div>
+        <div class="col-lg-3 field" *ngIf="form.get('wing')">
+            <p-dropdown optionLabel="value" [showClear]="true" [options]="optionsList[0]" optionValue="key"
+                formControlName="wing" placeholder="בחר אגף">
+                <ng-template let-option pTemplate="item">
+                    <span [class]="'product-badge status-' + option.value">{{option.value}}</span>
+                </ng-template>
+            </p-dropdown>
+            <!-- <br>
+                <br>
+                <br> -->
+        </div>
+        <div class="col-lg-3 field" *ngIf="form.get('wing')">
+            <p-dropdown optionLabel="value" [showClear]="true" [options]="departments" optionValue="key"
+                formControlName="department" placeholder="בחר מחלקה">
+                <ng-template let-option pTemplate="item">
+                    <span [class]="'product-badge status-' + option.value">{{option.value}}</span>
+                </ng-template>
+            </p-dropdown>
+        </div>
+    </div>
+    <br>
+    <div class="d-flex justify-content-end" style="top:-50px">
+        <button type="submit" pButton pRipple label="שמירה" [disabled]="!this.form.valid"></button>
+    </div>
+</form>

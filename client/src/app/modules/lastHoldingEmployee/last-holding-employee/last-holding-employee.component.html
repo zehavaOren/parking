@@ -1,0 +1,40 @@
+
+<p-table [columns]="history_sub" [value]="data3[0]" dataKey="id" [tableStyle]="{'min-width': '60rem'}" id="table">
+    <ng-template pTemplate="header" let-columns>
+        <tr>
+            <th>תז עובד</th>
+            <th *ngFor="let column of columns" [pSortableColumn]="column.key">{{column.value}}
+                <p-sortIcon [field]="column.key"></p-sortIcon>
+            </th>
+        </tr>
+        <tr>
+            <th></th>
+            <th *ngFor="let column of columns">
+                <p-columnFilter [field]="column.key" matchMode="contains" [showMenu]="false">
+                    <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                        <input [type]="column.type ?? 'text'" pInputText [ngModel]="value"
+                            (ngModelChange)="filter($event)">
+                    </ng-template>
+                </p-columnFilter>
+            </th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-subscribers let-columns="columns" let-expanded="expanded">
+        <tr>
+            <td>
+                <button pButton pRipple (click)="showEmployeeSubscription(subscribers.identiyNamber)">{{subscribers.identiyNamber}}
+                </button>
+            </td>
+            <td *ngFor="let col of columns">
+                <ng-container *ngIf="!col.isDate">{{subscribers[col.key]}}</ng-container>
+                <ng-container *ngIf="col.isDate">{{subscribers[col.key] | date: 'dd/MM/y'}}</ng-container>
+            </td>
+        </tr>
+    </ng-template>
+</p-table>
+
+<!-- <p-dialog header="פרטי עובד" [(visible)]="flag" >
+    {{subscribers.identiyNamber}}
+    {{identiyNamber}}
+    <jer-employee-subscription-details (afterSubmit)="afterSubmit($event)" [currentSub]="subscribers.identiyNamber"></jer-employee-subscription-details>
+</p-dialog> -->

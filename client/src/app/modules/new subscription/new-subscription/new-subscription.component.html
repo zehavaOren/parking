@@ -1,0 +1,35 @@
+<form [formGroup]="form" (ngSubmit)="saveNewSubscriber()">
+    <div class="field col">
+        <span class="p-float-label">
+            <input id="float-input" type="text" pInputText formControlName="newSubscriptionsNumber">
+            <small
+                *ngIf="form.controls['newSubscriptionsNumber'].errors && form.controls['newSubscriptionsNumber'].errors['required']">
+                *שדה חובה</small>
+            <label for="float-input"> מספר מנוי </label>
+        </span>
+    </div>
+    <div class="field col">
+        <label for="inventoryStatus">מקום חניה</label>
+        <p-dropdown optionLabel="value" [showClear]="true" [options]="optionsList[0]" optionValue="key"
+            formControlName="parkingSpace" placeholder="בחר מקום חניה">
+            <ng-template let-option pTemplate="item">
+                <span [class]="'product-badge status-' + option.value">{{option.value}}</span>
+            </ng-template>
+        </p-dropdown>
+        <small *ngIf="form.controls['parkingSpace'].errors && form.controls['parkingSpace'].errors['required']">
+            *שדה חובה</small>
+    </div>
+    <div class="field col" *ngIf="form.get('newAltenateSubscribersNumber')">
+        <label for="inventoryStatus"> </label>
+        <span class="p-float-label">
+            <input id="firstInput" class="inputs" type="text" pInputText name=""
+                formControlName="newAltenateSubscribersNumber" />
+            <small
+                *ngIf="form.controls['newAltenateSubscribersNumber'].errors && form.controls['newAltenateSubscribersNumber'].errors['required']">
+                *שדה חובה</small>
+            <label for="float-input">מספר חלופי</label>
+        </span>
+    </div>
+    <button type="submit" pButton pRipple label="שמירה" [disabled]="!this.form.valid"></button>
+
+</form>

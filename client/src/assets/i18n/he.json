@@ -1,0 +1,20 @@
+{
+  "primeng": {
+    "updateFromHere": "https://www.primefaces.org/primeng/i18n",
+    "emptyMessage": "לא נמצאו נתונים, אנא בחר רשומה אחרת",
+    "emptyFilterMessage": "לא נמצאו נתונים, אנא בחר רשומה אחרת"
+  },
+  "demo": "דוגמא",
+  "workers":"עובדים",
+  "entitlement":"זכאויות"  ,
+  "PayrollReports":"דוחות שכר",
+  "WaitingConfirmation":"ממתינים לאישור",
+  "UpdatesAndAlerts":"עדכונים והתראות",
+  "Search":"חיפוש",
+  "EmployeeSubscriptions":"מנויים לעובד",
+  "ApprovedSubscribers": "עובדים לאחר אישור מנוי",
+  "EligibilityWaive":"מוותרים על זכאות",
+  "CodeTables":"טבלאות קוד",
+  "WaitingParking":"ממתינים לחניה",
+  "Subscribers" :"מנויים"
+}

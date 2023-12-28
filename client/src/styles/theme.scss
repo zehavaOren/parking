@@ -1,0 +1,26 @@
+@import './variables';
+@import './fonts';
+@import "~bootstrap/dist/css/bootstrap.css";
+
+@import 'node_modules/primeflex/primeflex.scss';
+
+@import 'primeng-sass/designer/_components';
+@import 'primeng-sass/themes/material/extensions/vendor_extensions';
+
+@import 'extensions/general';
+@import "extensions/utils";
+@import "extensions/cards";
+@import "extensions/form";
+@import "extensions/formlayout";
+@import "extensions/datatables";
+@import "extensions/paginator";
+@import "extensions/menubar";
+@import "extensions/tabmenu";
+@import "extensions/tabview";
+@import "extensions/button";
+@import "extensions/dialog";
+@import "extensions/tree";
+@import "extensions/table";
+@import "extensions/splitter";
+@import "extensions/sidebar";
+@import "extensions/tooltip";

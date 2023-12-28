@@ -1,0 +1,48 @@
+<label>הכנס תאריך התחלה
+    <p-calendar dataType="date" [(ngModel)]="startDateValue" dateFormat="dd.mm.yy"></p-calendar>
+</label>
+<label> הכנס תאריך סיום
+    <p-calendar dataType="date" [(ngModel)]="endDateValue" dateFormat="dd.mm.yy"></p-calendar>
+</label>
+<button pButton type="button" label="הצג נתונים לתאריכים שנבחרו" (click)="show()"></button>
+<div id="table">
+    <div>
+        <br>
+        <h3>תוצאות חיפוש בין התאריך {{startDateValue| date: 'dd/MM/y' }} ל {{endDateValue | date: 'dd/MM/y'}}
+        </h3>
+        <br>
+        </div >
+    <p-table #dt1 [columns]="searchColumns" [value]="serach" [paginator]="true" [rows]="10" [showCurrentPageReport]="true" currentPageReportTemplate="מציג את רשומות  {first} עד {last}, מתוך  {totalRecords} רשומות" [rowsPerPageOptions]="[10,25,50]" dataKey="id" [tableStyle]="{'min-width': '60rem'}" >
+        <ng-template pTemplate="caption" >
+            <div class="flex">
+                <button pButton label="נקה סינונים" class="p-button-outlined" icon="pi pi-filter-slash" (click)="clear(dt1)"></button>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header" let-columns>
+            <tr>
+                <th *ngFor="let column of columns" [pSortableColumn]="column.key">{{column.value}}
+                    <p-sortIcon [field]="column.key"></p-sortIcon>
+                </th>
+            </tr>
+            <tr>
+                <th *ngFor="let column of columns">
+                    <p-columnFilter [field]="column.key" matchMode="contains" [showMenu]="false">
+                        <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                            <input [type]="column.type ?? 'text'" pInputText [ngModel]="value"
+                                (ngModelChange)="filter($event)">
+                        </ng-template>
+                    </p-columnFilter>
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-search let-editing="editing" let-columns="columns">
+            <tr>
+
+                <td *ngFor="let col of columns">
+                    <ng-container *ngIf="!col.isDate">{{search[col.key]}}</ng-container>
+                    <ng-container *ngIf="col.isDate">{{search[col.key] |  date: 'dd/MM/y'}}</ng-container>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>

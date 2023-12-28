@@ -1,0 +1,46 @@
+<div class="main-page">
+    <div class="main-page__toolbar">
+        <div class="container">
+            <p-menubar #menubar [model]="topBarMenuItems" *ngIf="topBarMenuItems">
+                <ng-template pTemplate="start">
+                    <button #button type="button" pButton icon="pi pi-bars" (click)="toggleSidebar()"></button>
+                </ng-template>
+                <ng-template pTemplate="end">
+                    <ul class="end-menu">
+                        <!-- <li class="menu-item">
+                            <span class="menu-item__text search" (click)="toggleSearch()">
+                                <i class="pi pi-search"></i>&nbsp;חפש
+                            </span>
+                        </li> -->
+                        <li class="menu-item">
+                            <span class="menu-item__text">
+                                <i class="pi pi-user"></i>&nbsp;{{demoUser}}
+                            </span>
+                        </li>
+                    </ul>
+                </ng-template>
+            </p-menubar>
+        </div>
+    </div>
+    <div class="container">
+        <h1 class="header-page">{{activeItem?.label}}</h1>
+        <br>
+        <!-- <p-card [title]="activeItem?.label">
+            <p-header>{{activeItem?.label}}</p-header> -->
+        <router-outlet></router-outlet>
+        <!-- </p-card> -->
+    </div>
+</div>
+<p-sidebar class="p-component" styleClass="sidebar" position="right" [showCloseIcon]="false" [dismissible]="true"
+    [modal]="true" [(visible)]="sidebarIsOpened" (onShow)="onSidebarOpen()" (onHide)="onSidebarClose()"
+    *ngIf="sidebarIsOpened">
+    <p-panelMenu [model]="topBarMenuItems" [multiple]="true"></p-panelMenu>
+    <!-- <ng-template pTemplate>
+        <div class="p-grid" style="max-height: 100vh; overflow-x: auto;"
+            *ngIf="topBarMenuItems && topBarMenuItems.length>0">
+            <div class="p-col-6 side-menu-item" *ngFor="let d of topBarMenuItems" (click)="toggleSidebar();">
+                <div>{{d.label | translate}}</div>
+            </div>
+        </div>
+    </ng-template> -->
+</p-sidebar>

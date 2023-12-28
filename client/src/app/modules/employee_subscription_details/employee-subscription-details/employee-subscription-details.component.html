@@ -1,0 +1,407 @@
+<p-accordion [activeIndex]="0">
+    <p-accordionTab header="Header I">
+        <form [formGroup]="form1" (ngSubmit)="saveForm()">
+            <p-card>
+                <!-- <h1>פרטי עובד</h1> -->
+                <p-header>פרטי עובד</p-header>
+                <div class="formgrid grid">
+                    <div class="field col">
+                        <span class="p-float-label">
+                            <input (blur)='getDataById()' id="firstInput" class="inputs" type="text" pInputText name=""
+                                formControlName="identityNumber" />
+                            <small
+                                *ngIf="form1.controls['identityNumber'].errors && form1.controls['identityNumber'].errors['required']">
+                                *שדה חובה</small>
+                            <label for="float-input">תז עובד</label>
+                        </span>
+                    </div>
+                    <div class="field col">
+                        <span class="p-float-label">
+                            <input id="float-input" type="text" pInputText formControlName="firstName">
+                            <small
+                                *ngIf="form1.controls['firstName'].errors && form1.controls['firstName'].errors['required']">
+                                *שדה חובה</small>
+                            <label for="float-input">שם עובד</label>
+                        </span>
+                    </div>
+                    <div class="field col">
+                        <span class="p-float-label">
+                            <input id="float-input" type="text" pInputText formControlName="lastName">
+                            <small
+                                *ngIf="form1.controls['lastName'].errors && form1.controls['lastName'].errors['required']">
+                                *שדה חובה</small>
+                            <label for="float-input">שם משפחה</label>
+                        </span>
+                    </div>
+                </div>
+                <div class="formgrid grid">
+                    <div class="field col" *ngIf="form1.get('wing')">
+                        <label for="inventoryStatus">אגף:</label>
+                        <p-dropdown optionLabel="value" [showClear]="true" [options]="optionsList[0]" optionValue="key"
+                            formControlName="wing" placeholder="בחר אגף">
+                            <ng-template let-option pTemplate="item">
+                                <span [class]="'product-badge status-' + option.value">{{option.value}}</span>
+                            </ng-template>
+                        </p-dropdown>
+                        <small *ngIf="form1.controls['wing'].errors && form1.controls['wing'].errors['required']">
+                            *שדה חובה</small>
+                    </div>
+                    <div class="field col" *ngIf="form1.get('wing')">
+                        <label for="inventoryStatus">מחלקה:</label>
+                        <p-dropdown optionLabel="value" [showClear]="true" [options]="departments" optionValue="key"
+                            formControlName="departmentId" placeholder="בחר מחלקה">
+                            <ng-template let-option pTemplate="item">
+                                <span [class]="'product-badge status-' + option.value">{{option.value}}</span>
+                            </ng-template>
+                        </p-dropdown>
+                    </div>
+                    <div class="field col">
+                        <span class="p-float-label">
+                            <input id="float-input" type="text" pInputText formControlName="job">
+                            <small *ngIf="form1.controls['job'].errors && form1.controls['job'].errors['required']">
+                                *שדה חובה</small>
+                            <label for="float-input"> תפקיד </label>
+                        </span>
+                    </div>
+                    <div class="field col">
+                        <span class="p-float-label">
+                            <input id="float-input" type="text" pInputText formControlName="jobTitle">
+                            <small
+                                *ngIf="form1.controls['jobTitle'].errors && form1.controls['jobTitle'].errors['required']">
+                                *שדה חובה</small>
+                            <label for="float-input"> תואר משרה</label>
+                        </span>
+                    </div>
+                </div>
+                <div class="formgrid grid">
+                    <div class="field-checkbox">
+                        <p-checkbox formControlName="isMunicipalityEmployee" [binary]="true" (onChange)="wingChange()">
+                        </p-checkbox>
+                        <label>עובד עיריה</label>
+                    </div>
+
+                    <div class="field-checkbox">
+                        <p-checkbox formControlName="updateInParkingSubscriptionSystem" [binary]="true"
+                            [disabled]="true">
+                        </p-checkbox>
+                        <label> עודכן במערכת </label>
+                    </div>
+                </div>
+            </p-card>
+            <br>
+            <!-- <p-card>
+        <h1>פרטי מנוי</h1>
+        <div class="formgrid grid">
+            <div class="field col">
+                <p-dropdown optionLabel="value" [showClear]="true" [options]="optionsList[1]" optionValue="key"
+                    formControlName="parkingSpace" placeholder="בחר מקום חניה">
+                    <ng-template let-option pTemplate="item">
+                        <span [class]="'product-badge status-' + option.value">{{option.value}}</span>
+                    </ng-template>
+                </p-dropdown>
+                <small
+                    *ngIf="form1.controls['parkingSpace'].errors && form1.controls['parkingSpace'].errors['required']">
+                    *שדה חובה</small>
+            </div>
+            <div class="field col">
+                <p-dropdown optionLabel="value" [showClear]="true" [options]="optionsList[3]" optionValue="key"
+                    formControlName="statusOrEligibility" placeholder="בחר מעמד/ זכאות">
+                    <ng-template let-option pTemplate="item">
+                        <span [class]="'product-badge status-' + option.value">{{option.value}}</span>
+                    </ng-template>
+                </p-dropdown>
+                <small
+                    *ngIf="form1.controls['statusOrEligibility'].errors && form1.controls['statusOrEligibility'].errors['required']">
+                    *שדה חובה</small>
+            </div>
+            <div class="field col">
+                <div class="field col">
+                    <span class="p-float-label">
+                        <input (blur)='getDataById()' id="firstInput" class="inputs" type="text" pInputText name=""
+                            formControlName="identityNumber" />
+                        <small
+                            *ngIf="form1.controls['identityNumber'].errors && form1.controls['identityNumber'].errors['required']">
+                            *שדה חובה</small>
+                        <label for="float-input">תז עובד</label>
+                    </span>
+                </div>
+                <div class="field col">
+                    <span class="p-float-label">
+                        <input id="float-input" type="text" pInputText formControlName="firstName">
+                        <small
+                            *ngIf="form1.controls['firstName'].errors && form1.controls['firstName'].errors['required']">
+                            *שדה חובה</small>
+                        <label for="float-input">שם עובד</label>
+                    </span>
+                </div>
+                <div class="field col">
+                    <span class="p-float-label">
+                        <input id="float-input" type="text" pInputText formControlName="lastName">
+                        <small
+                            *ngIf="form1.controls['lastName'].errors && form1.controls['lastName'].errors['required']">
+                            *שדה חובה</small>
+                        <label for="float-input">שם משפחה</label>
+                    </span>
+                </div>
+            </div>
+            <div class="formgrid grid">
+                <div class="field col" *ngIf="form1.get('wing')">
+                    <label for="inventoryStatus">אגף:</label>
+                    <p-dropdown optionLabel="value" [showClear]="true" [options]="optionsList[0]" optionValue="key"
+                        formControlName="wing" placeholder="בחר אגף">
+                        <ng-template let-option pTemplate="item">
+                            <span [class]="'product-badge status-' + option.value">{{option.value}}</span>
+                        </ng-template>
+                    </p-dropdown>
+                    <small *ngIf="form1.controls['wing'].errors && form1.controls['wing'].errors['required']">
+                        *שדה חובה</small>
+                </div>
+                <div class="field col" *ngIf="form1.get('wing')">
+                    <label for="inventoryStatus">מחלקה:</label>
+                    <p-dropdown optionLabel="value" [showClear]="true" [options]="departments" optionValue="key"
+                        formControlName="departmentId" placeholder="בחר מחלקה">
+                        <ng-template let-option pTemplate="item">
+                            <span [class]="'product-badge status-' + option.value">{{option.value}}</span>
+                        </ng-template>
+                    </p-dropdown>
+                </div>
+                <div class="field col">
+                    <span class="p-float-label">
+                        <input id="float-input" type="text" pInputText formControlName="job">
+                        <small *ngIf="form1.controls['job'].errors && form1.controls['job'].errors['required']">
+                            *שדה חובה</small>
+                        <label for="float-input"> תפקיד </label>
+                    </span>
+                </div>
+                <div class="field col">
+                    <span class="p-float-label">
+                        <input id="float-input" type="text" pInputText formControlName="jobTitle">
+                        <small
+                            *ngIf="form1.controls['jobTitle'].errors && form1.controls['jobTitle'].errors['required']">
+                            *שדה חובה</small>
+                        <label for="float-input"> תואר משרה</label>
+                    </span>
+                </div>
+            </div>
+            <div class="formgrid grid">
+                <div class="field-checkbox">
+                    <p-checkbox formControlName="isMunicipalityEmployee" [binary]="true" (onChange)="wingChange()">
+                    </p-checkbox>
+                    <label>עובד עיריה</label>
+                </div>
+
+<jer-delete *ngIf="showConfirmDel" (confirm)="sendEmail($event)" (cancel)="showConfirmDel=false" [summary]="'שליחת הודעה על מנוי חדש'" [detail]="'האם לשלוח הודעה לממונה?'"></jer-delete>
+                <div class="field-checkbox">
+                    <p-checkbox formControlName="updateInParkingSubscriptionSystem" [binary]="true" [disabled]="true">
+                    </p-checkbox>
+                    <label> עודכן במערכת </label>
+                </div>
+            </div>
+        </p-card> -->
+            <br>
+            <p-card>
+                <!-- <h1>פרטי מנוי</h1> -->
+                <p-header>פרטי מנוי</p-header>
+                <div class="formgrid grid">
+                    <div class="field col">
+                        <p-dropdown optionLabel="value" [showClear]="true" [options]="optionsList[1]" optionValue="key"
+                            formControlName="parkingSpace" placeholder="בחר מקום חניה">
+                            <ng-template let-option pTemplate="item">
+                                <span [class]="'product-badge status-' + option.value">{{option.value}}</span>
+                            </ng-template>
+                        </p-dropdown>
+                        <small
+                            *ngIf="form1.controls['parkingSpace'].errors && form1.controls['parkingSpace'].errors['required']">
+                            *שדה חובה</small>
+                    </div>
+                    <div class="field col">
+                        <p-dropdown optionLabel="value" [showClear]="true" [options]="optionsList[3]" optionValue="key"
+                            formControlName="statusOrEligibility" placeholder="בחר מעמד/ זכאות">
+                            <ng-template let-option pTemplate="item">
+                                <span [class]="'product-badge status-' + option.value">{{option.value}}</span>
+                            </ng-template>
+                        </p-dropdown>
+                        <small
+                            *ngIf="form1.controls['statusOrEligibility'].errors && form1.controls['statusOrEligibility'].errors['required']">
+                            *שדה חובה</small>
+                    </div>
+                    <div class="field col">
+                        <div class="field col">
+                            <p-dropdown optionLabel="value" [showClear]="true" [options]="subscribersFilter"
+                                optionValue="key" formControlName="subscriptionsNumber" placeholder="הכנס מספר מנוי"
+                                [filter]="true" filterBy="value" filterLocale="right">
+                                <ng-template let-option pTemplate="item">
+                                    <span [class]="'product-badge status-' + option.value">{{option.value}}</span>
+                                </ng-template>
+                            </p-dropdown>
+                            <div>
+                                <small
+                                    *ngIf="form1.controls['subscriptionsNumber'].errors && form1.controls['subscriptionsNumber'].errors['required']">
+                                    *שדה חובה</small>
+                            </div>
+                            <p-button label="הוסף מנוי חדש" styleClass="p-button-text" (click)="showDialog()">
+                            </p-button>
+                            <p-dialog header="הוסף מנוי חדש" [(visible)]="visible">
+                                <jer-new-subscription (afterAddNew)="afterAddNew($event)"
+                                    [parkingSpace]="[(form1.controls['parkingSpace'].value)][0]"></jer-new-subscription>
+                            </p-dialog>
+                        </div>
+                    </div>
+                    <div class="field col" *ngIf="form1.get('altenateSubscribersNumber')">
+                        <span class="p-float-label">
+                            <input id="firstInput" class="inputs" type="text" pInputText name=""
+                                formControlName="altenateSubscribersNumber" />
+                            <small
+                                *ngIf="form1.controls['altenateSubscribersNumber'].errors && form1.controls['altenateSubscribersNumber'].errors['required']">
+                                *שדה חובה</small>
+                            <label for="float-input">מספר חלופי</label>
+                        </span>
+                    </div>
+                </div>
+                <div class="formgrid grid">
+                    <div class="field col" *ngIf="form1.get('locationOutsideTheSquare')">
+                        <p-dropdown optionLabel="value" [showClear]="true" [options]="optionsList[5]" optionValue="key"
+                            formControlName="locationOutsideTheSquare" placeholder="בחר מקום חניה מחוץ לכיכר">
+                            <ng-template let-option pTemplate="item">
+                                <span [class]="'product-badge status-' + option.value">{{option.value}}</span>
+                            </ng-template>
+                        </p-dropdown>
+                        <small
+                            *ngIf="form1.controls['locationOutsideTheSquare'].errors && form1.controls['locationOutsideTheSquare'].errors['required']">
+                            *שדה חובה</small>
+                    </div>
+                    <div class="field col">
+                        <span class="p-float-label">
+                            <input id="float-input" type="text" pInputText formControlName="participationFee">
+                            <label for="float-input">דמי השתתפות </label>
+                        </span>
+                    </div>
+                    <div class="field col">
+                        <span class="p-float-label">
+                            <input id="float-input" type="text" pInputText formControlName="carNumber">
+                            <small
+                                *ngIf="form1.controls['carNumber'].errors && form1.controls['carNumber'].errors['required']">
+                                *שדה חובה</small>
+                            <label for="float-input"> מספר רכב </label>
+                        </span>
+                    </div>
+                    <div *ngIf="form1.get('sticker')" class="field col">
+                        <span class="p-float-label">
+                            <input id="float-input" type="text" pInputText formControlName="sticker">
+                            <small
+                                *ngIf="form1.controls['sticker'].errors && form1.controls['sticker'].errors['required']">
+                                *שדה חובה</small>
+                            <label for="float-input"> מדבקה </label>
+                        </span>
+                    </div>
+                </div>
+                <div class="formgrid grid">
+                    <div class="field col">
+                        <div class="field-checkbox">
+                            <p-checkbox formControlName="deductionFromSalary" [binary]="true"></p-checkbox>
+                            <label> הורדה משכר </label>
+                        </div>
+                    </div>
+                    <div class="field col " *ngIf="form1.get('monthlyParkingFee')">
+                        <span class="p-float-label">
+                            <input id="float-input" type="text" pInputText formControlName="monthlyParkingFee">
+                            <label for="float-input"> עלות חניה חודשית </label>
+                        </span>
+                    </div>
+                    <div class="field col">
+                        <div class="field-checkbox">
+                            <p-checkbox formControlName="subscriptionsCardWasProduced" [binary]="true"></p-checkbox>
+                            <label> הופק כרטיס מנוי </label>
+                        </div>
+                    </div>
+                    <div class="field col" *ngIf="form1.get('subscriptionsCardHasBeenReturned')">
+                        <div class="field-checkbox">
+                            <p-checkbox formControlName="subscriptionsCardHasBeenReturned" [binary]="true"></p-checkbox>
+                            <label> הוחזר כרטיס מנוי </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="formgrid grid">
+                    <div class="field col">
+                        <div class="p-fluid field">
+                            <label for="dateformat">תאריך התחלה</label>
+                            <p-calendar inputId="dateformat" formControlName="startDate" [disabled]="true"></p-calendar>
+                        </div>
+                    </div>
+                    <div class="field col">
+                        <div class="p-fluid field">
+                            <label for="dateformat">תאריך תפוגה</label>
+                            <p-calendar inputId="dateformat" formControlName="expiryDate" [disabled]="true">
+                            </p-calendar>
+                        </div>
+                    </div>
+                    <div class="field col">
+                        <p-dropdown optionLabel="value" [showClear]="true" [options]="optionsList[1]" optionValue="key"
+                            formControlName="alternateparkingSpace" placeholder="בחר מקום חניה חלופי">
+                            <ng-template let-option pTemplate="item">
+                                <span [class]="'product-badge status-' + option.value">{{option.value}}</span>
+                            </ng-template>
+                        </p-dropdown>
+                    </div>
+                    <div class="field col">
+                    </div>
+                </div>
+                <div class="formgrid grid">
+                    <div class="field col">
+                        <span class="p-float-label">
+                            <input id="float-input" type="text" pInputText formControlName="notes">
+                            <label for="float-input"> הערות למחלקת שכר </label>
+                        </span>
+                    </div>
+                </div>
+                <div class="formgrid grid">
+                    <div class="field col">
+                        <p-dropdown optionLabel="value" [showClear]="true" [options]="optionsList[2]" optionValue="key"
+                            formControlName="status" placeholder="בחר סטטוס">
+                            <ng-template let-option pTemplate="item">
+                                <span [class]="'product-badge status-' + option.value">{{option.value}}</span>
+                            </ng-template>
+                        </p-dropdown>
+                        <small *ngIf="form1.controls['status'].errors && form1.controls['status'].errors['required']">
+                            *שדה חובה</small>
+                    </div>
+                    <div class="field col">
+                        <div class="p-fluid field">
+                            <span class="p-float-label">
+                                <p-calendar formControlName="statusDate" inputId="dateformat"></p-calendar>
+                                <small
+                                    *ngIf="form1.controls['statusDate'].errors && form1.controls['statusDate'].errors['required']">
+                                    *שדה חובה</small>
+                                <label for="status date"> תאריך סטטוס
+                                </label>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="field col">
+                        <span class="p-float-label">
+                            <input id="float-input" type="text" pInputText formControlName="registeredBy">
+                            <small
+                                *ngIf="form1.controls['registeredBy'].errors && form1.controls['registeredBy'].errors['required']">
+                                *שדה חובה</small>
+                            <label for="float-input"> נרשם על ידי </label>
+                        </span>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-end">
+                    <button type="submit" pButton pRipple label="שמירה" [disabled]="!this.form1.valid"></button>
+                </div>
+            </p-card>
+
+
+        </form>
+
+    </p-accordionTab>
+    <p-accordionTab header="Header II">
+        <jer-more-employee-data [newId]="newId"></jer-more-employee-data>
+        <router-outlet></router-outlet>
+    </p-accordionTab>
+</p-accordion>
+
+
+
+<jer-delete *ngIf="showConfirmDel" (confirm)="sendEmail($event)" (cancel)="cancelEmail()"></jer-delete>

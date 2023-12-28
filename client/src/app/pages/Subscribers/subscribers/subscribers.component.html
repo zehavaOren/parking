@@ -1,0 +1,115 @@
+<p-card class="mb-3">
+    <p-header>סינון</p-header>
+    <form [formGroup]="subscriberForm" (ngSubmit)="getData()">
+        <div class="formgrid grid">
+            <div class="field col">
+                <p-dropdown optionValue="key" [options]="data2[0]" placeholder="מקום חניה" optionLabel="value"
+                    [showClear]="true" formControlName="parkingSpace"></p-dropdown>
+            </div>
+            <div class="px-3 fieldfield-checkbox">
+                <p-checkbox label="מנויים פנויים בלבד" formControlName="subscriptionsAvailable"
+                    [binary]="true"></p-checkbox>
+            </div>
+            <div class="field col">
+                <span class="p-float-label">
+                    <input id="firstInput" class="inputs" type="text" pInputText formControlName="subscriptionNumber" />
+                    <label for="float-input">מספר מנוי</label>
+                </span>
+            </div>
+            <div class="field col">
+                <span class="p-float-label">
+                    <input id="firstInput" class="inputs" type="text" pInputText formControlName="replacementNumber" />
+                    <label for="float-input">מספר חילופי</label>
+                </span>
+            </div>
+            <div class="field col">
+                <span class="p-float-label">
+                    <input id="firstInput" class="inputs" type="text" pInputText formControlName="stickerNumber" />
+                    <label for="float-input">מספר מדבקה</label>
+                </span>
+            </div>
+            <div class="field col">
+                <button pButton pRipple type="submit" label="חיפוש"></button>
+                <button pButton pRipple type="button" label=" איפוס חיפוש " class="mr-2" (click)="Reset()"></button>
+            </div>
+        </div>
+
+    </form>
+</p-card>
+<br>
+<p-card>
+    <p-header>תוצאות חיפוש רשימת מנויים</p-header>
+    <div class="d-flex justify-content-between">
+        <button pButton pRipple label="הוספת חדש" (click)="addSubsciber()"></button>
+        <button type="button" pButton pRipple icon="pi pi-file-excel" (click)="exportExcel()"
+            class="p-button-success p-mr-2"> יצא לאקסל</button>
+    </div>
+    <br>
+    <p-table [columns]="columns" [value]="data[0]" dataKey="key" [tableStyle]="{'min-width': '60rem'}" id="table"
+        [paginator]="true" [rows]="10" [showCurrentPageReport]="true"
+        currentPageReportTemplate="מציג את רשומות  {first} עד {last}, מתוך  {totalRecords} רשומות"
+        [rowsPerPageOptions]="[10,25,50]">
+
+        <ng-template pTemplate="header" let-columns>
+            <tr>
+                <th *ngFor="let column of columns" [pSortableColumn]="column.key">{{column.value}}
+                    <p-sortIcon [field]="column.key"></p-sortIcon>
+                </th>
+                <th [style]="{width: '10vw'}">עובד מחזיק אחרון</th>
+                <th [style]="{width: '5vw'}">מחיקה</th>
+            </tr>
+            <tr>
+                <th *ngFor="let column of columns">
+                    <p-columnFilter [field]="column.key" matchMode="contains" [showMenu]="false">
+                        <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                            <input [type]="column.type ?? 'text'" pInputText [ngModel]="value"
+                                (ngModelChange)="filter($event)">
+                        </ng-template>
+                    </p-columnFilter>
+                </th>
+                <th></th>
+                <th></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-subscribers let-columns="columns" let-expanded="expanded">
+
+            <tr [ngClass]="{'row-accessories': !subscribers.active}">
+                <td *ngFor="let col of columns">
+                    <ng-container *ngIf="!col.isDate">{{subscribers[col.key]}}</ng-container>
+                    <ng-container *ngIf="col.isDate">{{subscribers[col.key] | date: 'dd/MM/y'}}</ng-container>
+                </td>
+                <td>
+                    <button pButton pRipple label="עובדים מחזיקים במנוי" (click)="showDialog(subscribers)">
+                    </button>
+                </td>
+                <td>
+                    <span class="p-buttonset">
+                        <button label="מחק" type="button" pButton pRipple (click)="deleteConfirm(subscribers)"
+                            icon="pi pi-trash" *ngIf="subscribers.active" class="ui-button-warning"></button>
+                        <p-button label="שחזר" icon="pi pi-check" styleClass="p-button-sm" *ngIf="!subscribers.active"
+                            (click)="deleteConfirm(subscribers)"></p-button>
+                    </span>
+                </td>
+            </tr>
+
+        </ng-template>
+        <ng-template pTemplate="emptymessage" let-columns>
+            <tr>
+
+                <td [attr.colspan]="columns.length"
+                    [ngStyle]="{'font-size': 'large', 'font-weight': 700,'text-align': 'center','color': '#161212'}">
+                    לא נמצאו נתונים
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</p-card>
+<jer-delete *ngIf="showConfirmDel" (confirm)="delete($event)" (cancel)="showConfirmDel=false"></jer-delete>
+
+<p-dialog header=" הוספת מנוי חדש" [(visible)]="flag">
+    <jer-new-subscription (afterAddNew)="afterAddNew($event)"></jer-new-subscription>
+</p-dialog>
+
+<p-dialog header="עובדים מחזיקים במנוי" [(visible)]="visible">
+    <jer-last-holding-employee [subscribers]="aaa" *ngIf="visible"></jer-last-holding-employee>
+</p-dialog>

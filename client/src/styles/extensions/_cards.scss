@@ -1,0 +1,25 @@
+.p-card {
+    overflow: hidden;
+
+    .p-card-header {
+        background-color: $primaryColor;
+        padding: $cardHeaderPadding;
+        color: #fff;
+        font-size: 24px;
+        font-weight: $fontWeightBold;
+
+        p-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        p-button {
+            margin: -$buttonVerticalPadding 0.5rem -$buttonVerticalPadding -$buttonVerticalPadding;
+        }
+    }
+
+    &.p-card--gray {
+        background-color: $gray-300;
+    }
+}

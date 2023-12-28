@@ -1,0 +1,44 @@
+
+<p-card>
+    <p-header>נתוני טבלאות קוד</p-header>
+    <div class="formgrid grid">
+        <div class="field col">
+            <p-dropdown optionValue="key" [options]="data[0]" placeholder="בחר שם טבלה" optionLabel="value"
+                [showClear]="true" [(ngModel)]="codeTablesArry" ></p-dropdown>
+        </div>
+        <div class="field col">
+            <button type="button" pButton pRipple (click)="getOptionByID()" label="הצג נתונים"
+                class="ui-button-warning"></button>
+        </div>
+    </div>
+    <div class="formgrid grid">
+        <ul>
+            <li *ngFor="let item of data2[0]">{{item.value}}</li>
+        </ul>
+        <!-- <p-table [columns]="CodeColumns" [value]="data2[0]" [tableStyle]="{'min-width': '10rem'}">
+            <ng-template pTemplate="header" let-columns>
+            </ng-template>
+            <ng-template pTemplate="body" let-columns="columns" let-code>
+                <tr>
+                    <td *ngFor="let col of columns">{{code[col.key]}} </td>
+                </tr>
+            </ng-template>
+        </p-table> -->
+    </div>
+    <div class="formgrid grid">
+        <div class="field col">
+            <input type="text" pInputText placeholder="הכנס רשומה חדשה" [(ngModel)]="valueOption">
+        </div>
+
+        <div class="field col" *ngIf="flag" >
+            <p-dropdown optionValue="key" [options]="data3[0]" placeholder="בחר שם אגף" optionLabel="value"
+                [showClear]="true"></p-dropdown>
+        </div>
+
+        <div class="field col">
+            <button type="button" pButton pRipple label="הוסף חדש" (click)="addOption()"
+                class="ui-button-warning"></button>
+        </div>
+    </div>
+    
+</p-card>

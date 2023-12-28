@@ -1,0 +1,116 @@
+// RTL extra
+// =====================
+@mixin rtl() {
+    &[dir="rtl"],
+    [dir="rtl"] & {
+        @content;
+    }
+}
+
+* {
+    @include rtl() {
+        direction: rtl;
+    }
+}
+
+// General
+// =====================
+* {
+    position: relative;
+}
+
+body {
+    background-color: $bodyBg;
+    margin: 0;
+    padding: 0;
+    text-align: right;
+    line-height: $baseLineHeight;
+}
+
+.container {
+    margin: 0 auto 0;
+    max-width: $container-max-width;
+    padding: 0 1rem;
+}
+
+.h-100 {
+    height: calc(100vh - 460px);
+}
+
+.w-100 {
+    width: 100%;
+}
+
+.route {
+    cursor: $route;
+}
+
+.cell-clickable {
+    cursor: $route;
+}
+
+.minus {
+    color: $dangerColor;
+}
+
+.add-new {
+    position: fixed;
+    bottom: 3rem;
+    left: 3rem;
+    z-index: 100;
+}
+
+.form-block {
+    flex-grow: 1;
+    padding: 2.5rem 1.5rem;
+}
+
+.details-block {
+    padding: 2.5rem 1.5rem;
+    flex: 0 0 35%;
+    background: $gray-300;
+}
+
+.button-block {
+    border-top: solid 1px $gray-300;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    direction: ltr;
+}
+
+.cut-text {
+    // flex-wrap: wrap;
+    cursor: pointer;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    display: block;
+    max-height: 105px;
+}
+// .cut-text::after {
+//     content: "...";
+//     position: absolute;
+//     display: block;
+//     width: 2em;
+//     height: 1em;
+//     bottom: 0;
+//     left: 0;
+//     text-align: center;
+// }
+
+.pi {
+    &.size-normal {
+        font-size: 1.8em;
+    }
+}
+
+.danger {
+    background-color: rgba($dangerColor, 0.08);
+}
+
+.hidden {
+    display: none;
+}

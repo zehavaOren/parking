@@ -1,0 +1,72 @@
+<form [formGroup]="form1" (ngSubmit)="saveForm()">
+    <div class="row">
+        <div class="formgrid grid">
+            <div class="field col">
+                <label for="inventoryStatus"> זכאות עובד: </label>
+                <p-dropdown optionLabel="value" [showClear]="true" placeholder="הכנס  זכאות עובד"
+                    [options]="optionsList[0]" optionValue="key" formControlName="statusOrEligibility">
+                    <ng-template let-option pTemplate="item" placeholder="בחר זכאות עובד">
+                        <span [class]="'product-badge status-' + option.value">{{option.value}}</span>
+                    </ng-template>
+                </p-dropdown>
+                <small
+                    *ngIf="form1.controls['statusOrEligibility'].errors && form1.controls['statusOrEligibility'].errors['required']">
+                    *שדה חובה</small>
+            </div>
+            <div class="field col">
+                <label for="inventoryStatus"> מקום חניה :</label>
+                <p-dropdown optionLabel="value" placeholder="הכנס מקום חניה" [showClear]="true"
+                    [options]="optionsList[1]" optionValue="key" formControlName="parkingSpace">
+                    <ng-template let-option pTemplate="item" placeholder="בחר מקום">
+                        <span [class]="'product-badge status-' + option.value">{{option.value}}</span>
+                    </ng-template>
+                </p-dropdown>
+                <small
+                    *ngIf="form1.controls['parkingSpace'].errors && form1.controls['parkingSpace'].errors['required']">
+                    *שדה חובה</small>
+            </div>
+        </div>
+        <div class="formgrid grid">
+            <div class="field col">
+                <span class="p-float-label">
+                    <input id="float-input" type="text" pInputText formControlName="participantionFee" type="number">
+                    <small
+                        *ngIf="form1.controls['participantionFee'].errors && form1.controls['participantionFee'].errors['required']">
+                        *שדה חובה</small>
+                    <label> דמי השתתפות</label>
+                </span>
+            </div>
+            <div class="field col">
+                <div class="field-checkbox">
+                    <p-checkbox formControlName="expiryDateCharge" [binary]="true"></p-checkbox>
+                    <label> חיוב תאריך תפוגה </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="formgrid grid">
+
+            <div class="field col">
+                <div class="p-fluid field">
+                    <label for="dateformat">תאריך התחלה</label>
+                    <p-calendar inputId="dateformat" formControlName="fromDate" appendTo="body"></p-calendar>
+                    <small *ngIf="form1.controls['fromDate'].errors && form1.controls['fromDate'].errors['required']">
+                        *שדה חובה</small>
+                </div>
+            </div>
+
+            <div class="field col">
+                <div class="p-fluid field">
+                    <label for="dateformat"> תאריך סיום</label>
+                    <p-calendar inputId="dateformat" formControlName="untilDate" appendTo="body"></p-calendar>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-md-2">
+        </div>
+    </div>
+    <button type="submit" pButton pRipple label="שמירה" [disabled]="!this.form1.valid"></button>
+    <br>
+    <br>
+</form>

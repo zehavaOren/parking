@@ -1,0 +1,14 @@
+.p-formgroup-inline .p-field,
+.p-formgroup-inline .p-field-checkbox,
+.p-formgroup-inline .p-field-radiobutton {
+    @include rtl() {
+        margin-right: 0;
+        margin-left: $fieldMargin;
+    }
+}
+
+.p-field-checkbox,
+.p-field-radiobutton {
+    margin-top: 0.25rem;
+    margin-bottom: 0.25rem;
+}

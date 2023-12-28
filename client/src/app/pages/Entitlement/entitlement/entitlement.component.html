@@ -1,0 +1,52 @@
+<p-card>
+    <p-header>ניהול זכאויות</p-header>
+    <p-table #dt1 [columns]="columns" [value]="data[0]" dataKey="id" [tableStyle]="{'min-width': '60rem'}" [paginator]="true" [rows]="10" [showCurrentPageReport]="true"
+        currentPageReportTemplate="מציג את רשומות  {first} עד {last}, מתוך  {totalRecords} רשומות"
+        [rowsPerPageOptions]="[10,25,50]">
+        <ng-template pTemplate="caption">
+            <div class="flex">
+                <button pButton pRipple label="הוספת חדש" (click)="showDialog(null)"></button>
+                <button pButton label="נקה סינונים" class="p-button-outlined mr-2" icon="pi pi-filter-slash"
+                    (click)="dt1.clear()"></button>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header" let-columns>
+            <tr>
+                <th>עריכה</th>
+                <th *ngFor="let column of columns" [pSortableColumn]="column.key">{{column.value}}
+                    <p-sortIcon [field]="column.key"></p-sortIcon>
+                </th>
+            </tr>
+            <tr>
+                <th></th>
+                <th *ngFor="let column of columns">
+                    <p-columnFilter [field]="column.key" matchMode="contains" [showMenu]="false">
+                        <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                            <input [type]="column.type ?? 'text'" pInputText [ngModel]="value"
+                                (ngModelChange)="filter($event)">
+                        </ng-template>
+                    </p-columnFilter>
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-entitlement let-columns="columns" let-expanded="expanded">
+            <tr>
+                <td>
+                    <button type="button" pButton pRipple (click)="showDialog(entitlement)"
+                        class="p-button-text p-button-rounded p-button-plain"
+                        [icon]="expanded ? 'pi pi-pencil' : 'pi pi-pencil'"></button>
+                </td>
+                <td *ngFor="let col of columns">
+                    <ng-container *ngIf="!col.isDate">{{entitlement[col.key]}}</ng-container>
+                    <ng-container *ngIf="col.isDate">{{entitlement[col.key] | date: 'dd/MM/yyyy'}}</ng-container>
+                </td>
+            </tr>
+
+        </ng-template>
+    </p-table>
+</p-card>
+
+<p-dialog *ngIf="display" [(visible)]="display">
+    <jer-entitlement-details [current_entitlement]="entitlement" (afterSubmit)="afterSubmit($event)">
+    </jer-entitlement-details>
+</p-dialog>

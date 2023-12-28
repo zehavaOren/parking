@@ -1,0 +1,74 @@
+
+<p-card>
+<!-- <button pButton pRipple label=" כתב התחייבות"  (click)="showDialog1()"> </button> -->
+<button pButton pRipple label="הוספה"(click)="showDialog()"> </button>
+<button pButton pRipple label="כתב התחייבות"(click)="showDialog1()"> </button>
+
+
+<p-dialog header="הוספת חדש" [(visible)]="display" >
+<jer-document-for-emploeey-details *ngIf="display" [currentID]="id"></jer-document-for-emploeey-details>
+</p-dialog> 
+
+
+
+<p-dialog header="כתב התחייבות"  [(visible)]="display1" >
+    <jer-commitment-document  *ngIf="display1"  [currentID]="id">רעא</jer-commitment-document>
+</p-dialog> 
+
+
+
+
+
+
+    <p-table #dt1 [columns]="EmployeeSubscriptionsColumns"   dataKey="id" [value]="document" >
+
+        <ng-template pTemplate="caption" >
+
+            <div class="flex"> 
+         </div>
+        </ng-template>
+        <ng-template pTemplate="header" let-columns>
+            <tr>
+                <th *ngFor="let column of columns">{{column.value}} 
+         
+                 </th>
+                <th>עריכה</th>
+                <th>מחיקה</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-sub let-columns="columns"  let-expanded="expanded" >
+            <tr>   
+                                            
+           <td *ngFor="let col of columns">
+           <span *ngIf="!col.link"> {{sub[col.key]}}</span>
+           <span  *ngIf="col.link"> <a  (click)="show(sub)" class="underline">לצפיה במסמך לחץ כאן </a></span>
+          
+           </td>
+    
+    
+        <td>
+            <button type="button" pButton pRipple [pRowToggler]="sub" class="p-button-text p-button-rounded p-button-plain" [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
+        <!-- <button type="button" pButton pRipple [pRowToggler]="expanded"
+        class="p-button-text p-button-rounded p-button-plain"
+        [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-left'" ></button> -->
+        </td>
+        <td><button type="button" (click)="delete(sub)" pButton pRipple  icon="pi pi-trash" class="ui-button-warning"></button></td>
+    </tr>
+        </ng-template>
+
+
+        <ng-template pTemplate="rowexpansion" let-sub>
+            <td colspan="7">
+            <br>
+            <jer-document-for-emploeey-details [currentID]="id"     [currentDoc]="sub"    ></jer-document-for-emploeey-details>
+
+           </td>
+
+    </ng-template>
+
+
+</p-table>
+
+    </p-card>
+
+

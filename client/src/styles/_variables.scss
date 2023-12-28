@@ -1,0 +1,50 @@
+
+$gutter: 15px;
+
+$primaryColor: #043c66;
+$primaryTextColor: #ffffff;
+$accentColor: #eebb2c;
+$accentTextColor: $primaryColor;
+$dangerColor: #d32f2f;
+$successColor: #689f38;
+
+$gray-700: #484747;
+$gray-500: #707070;
+$gray-400: #aaaaaa;
+$gray-300: #d3d3d3;
+$gray-200: #e5e5e5;
+$gray-100: #f2f2f2;
+
+$bodyBg: $gray-100;
+$baseLineHeight: 1.3125;
+$fontWeightBold: 700;
+$buttonVerticalPadding: 0.5rem;
+$toggleButtonBorderColor: rgba(0, 0, 0, 0.12);
+
+$treeNodeChildrenSidePadding: 0;
+
+
+$fieldMargin: 2rem;
+$fieldLabelMargin: 0.1rem;
+
+@import "material-variables";
+
+$tabview-font-size: 1.25rem;
+$container-max-width: 1710px;
+
+$divider-cell-width: 0.5rem;
+
+$timeline-arrow-size: 2rem;
+$timeline-new-activity-width: 7rem;
+$timeline-arrow-to-new-space: 1rem;
+$timeline-circ-radius: 7px;
+$timeline-line-width: 4px;
+$timeline-top-space: 3rem;
+$timeline-top-padding: 0.75rem;
+$timeline-side-padding: $timeline-circ-radius;
+
+$dashboard-circle-size: 12vw;
+
+$left-arrow-size: 2rem;
+
+$route: pointer;

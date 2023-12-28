@@ -1,0 +1,14 @@
+.p-paginator {
+    .p-paginator-first,
+    .p-paginator-prev,
+    .p-paginator-next,
+    .p-paginator-last {
+        .p-paginator-icon {
+            transform: scaleX(-1);
+        }
+    }
+
+    .p-paginator-current{
+        cursor: default;
+    }
+}

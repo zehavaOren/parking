@@ -1,0 +1,75 @@
+<p-card>
+    <p-header>לקוחות הממתינים לאישור לקבלת מנויי חניה</p-header>
+    <p-table #dt1 [value]="waitingConfirmationArry" [paginator]="true" [rows]="10" [showCurrentPageReport]="true"
+        currentPageReportTemplate="מציג את רשומות  {first} עד {last}, מתוך  {totalRecords} רשומות"
+        [rowsPerPageOptions]="[10,25,50]" [columns]="columns" dataKey="identityNumber"
+        [tableStyle]="{'min-width': '60rem'}">
+        <ng-template pTemplate="caption">
+            <div class="flex">
+                <button pButton pRipple label="הוספת חדש" (click)="showDialog()"></button>
+                <button pButton label="נקה סינונים" class="p-button-outlined mr-2" icon="pi pi-filter-slash"
+                    (click)="dt1.clear()"></button>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header" let-columns>
+            <tr>
+                <th>עריכה</th>
+                <th *ngFor="let column of columns" [pSortableColumn]="column.key">{{column.value}}
+                    <p-sortIcon [field]="column.key"></p-sortIcon>
+                </th>
+                <th>אשר מנוי</th>
+                <th>מחיקה</th>
+            </tr>
+            <tr>
+                <th></th>
+                <th *ngFor="let column of columns">
+                    <p-columnFilter [field]="column.key" matchMode="contains" [showMenu]="false">
+                        <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                            <input [type]="column.type ?? 'text'" pInputText [ngModel]="value"
+                                (ngModelChange)="filter($event)">
+                        </ng-template>
+                    </p-columnFilter>
+                </th>
+                <th></th>
+                <th></th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-waiting let-columns="columns" let-expanded="expanded">
+            <tr>
+                <td>
+                    <button type="button" pButton pRipple [pRowToggler]="waiting"
+                        class="p-button-text p-button-rounded p-button-plain"
+                        [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-left'"></button>
+                </td>
+                <td *ngFor="let col of columns">
+                    {{waiting[col.key]}}
+                </td>
+                <td>
+                    <span class="p-buttonset">
+                        <button label="אשר מנוי" type="button" pButton pRipple (click)="deleteConfirm(1, waiting)"
+                            icon="pi pi-check" class="ui-button-warning"></button>
+                    </span>
+                </td>
+                <td>
+                    <span class="p-buttonset">
+                        <button label="מחק" type="button" pButton pRipple (click)="deleteConfirm(2,waiting)"
+                            icon="pi pi-trash" class="ui-button-warning"></button>
+                    </span>
+                </td>
+
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="rowexpansion" let-waiting>
+            <tr>
+                <td colspan="14">
+                    <!-- <br> -->
+                    <jer-waiting-confirmation-details [cid]="waiting.identityNumber"></jer-waiting-confirmation-details>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</p-card>
+<p-dialog header="הוספת ממתין לאישור" [(visible)]="display" [style]="{width: '50vw'}">
+    <jer-waiting-confirmation-details [id]="ide" (afterSubmit)="afterSubmit($event)"></jer-waiting-confirmation-details>
+</p-dialog>
+<jer-delete *ngIf="showConfirmDel" (confirm)="confirmDialog($event)" (cancel)="showConfirmDel=0"></jer-delete>

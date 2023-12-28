@@ -1,0 +1,44 @@
+.p-tree {
+    border: none;
+    background: transparent;
+    color: $primaryColor;
+    padding: 0;
+
+    .p-tree-container {
+        .p-treenode {
+
+            .p-treenode-content {
+
+                @include rtl() {
+                    .p-tree-toggler {
+                        margin-left: $inlineSpacing;
+                        margin-right: initial;
+                        width: 1.5rem;
+                        height: 1.5rem;
+
+                        .p-tree-toggler-icon.pi-chevron-right {
+                            &:before {
+                                content: "\e900";
+                            }
+                        }
+                    }
+    
+                    .p-treenode-icon {
+                        margin-left: $inlineSpacing;
+                    }
+    
+                    .p-checkbox {
+                        margin-left: $inlineSpacing;
+                    }
+                }
+                
+            }
+        }
+    }
+
+    // @include rtl() {
+    //     .p-treenode-children {
+    //         padding: 0 $treeNodeChildrenSidePadding 0 0; // see: $treeNodeChildrenPadding;
+    //     }
+    // }
+}

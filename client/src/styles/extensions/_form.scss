@@ -1,0 +1,111 @@
+.p-inputtext {
+    &:enabled:focus {
+        box-shadow: none;
+    }
+}
+
+.p-autocomplete,
+.p-inputtext,
+.p-dropdown {
+    width: 100%;
+    border-radius: 0;
+    border-width: 0 0 3px 0;
+}
+
+.p-autocomplete {
+    .p-button {
+        border-bottom: $inputBorder;
+        &, &:focus, &:hover, &:active {
+            background: transparent;
+            color: $inputIconColor
+        }
+
+        &:not(.p-disabled):hover {
+            border-color: $inputHoverBorderColor;
+        }
+    
+        &:not(.p-disabled).p-focus {
+            @include focused-input();
+        }
+    }
+}
+
+.p-dropdown {
+    &.p-dropdown-clearable {
+        .p-dropdown-label {
+            padding-right: nth($inputPadding, 2);
+            padding-left: nth($inputPadding, 2) + $primeIconFontSize;
+        }
+    }
+
+    &:not(.p-disabled).p-focus {
+        box-shadow: none;
+    }
+
+    .p-dropdown-clear-icon {
+        right: auto;
+        left: $inputGroupAddOnMinWidth;
+    }
+}
+
+
+.p-autocomplete-panel, .p-dropdown-panel {
+    right: 0;
+    left: auto !important;
+}
+
+textarea {
+    resize: none;
+}
+
+.p-float-label > label {
+    left: 0;
+    right: nth($inputPadding, 2);
+}
+.p-float-label input:focus ~ label,
+.p-float-label input.p-filled ~ label,
+.p-float-label textarea:focus ~ label,
+.p-float-label textarea.p-filled ~ label,
+.p-float-label .p-inputwrapper-focus ~ label,
+.p-float-label .p-inputwrapper-filled ~ label {
+    margin-left: 0;
+    margin-right: -4px;
+}
+
+// .p-selectbutton {
+//     .p-button {
+//         background: $toggleButtonBg;
+//         border: $toggleButtonBorder;
+
+.p-buttonset {
+    .p-button {
+        &:not(:last-child) {
+            @include rtl() {
+                border-right: solid 1px $toggleButtonBorderColor;
+                border-left-width: 0;
+            }
+        }
+    }
+}
+
+.p-checkbox .p-checkbox-box.p-highlight .p-checkbox-icon {
+    position: static;
+}
+
+.p-checkbox-label, .p-radiobutton-label {
+    margin-left: 0;
+    margin-right: $inlineSpacing;
+}
+
+
+.p-datepicker {
+    .p-datepicker-header {
+
+        .p-datepicker-prev {
+            order: 3;
+        }
+        .p-datepicker-next {
+            order: 2;
+        }
+    }
+}

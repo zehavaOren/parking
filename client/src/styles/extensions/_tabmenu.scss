@@ -1,0 +1,38 @@
+.p-tabmenu {
+    .p-tabmenu-nav {
+        font-size: $tabview-font-size;
+
+        .p-tabmenuitem {
+            margin-right: 0;
+            margin-left: $tabviewHeaderSpacing;
+
+            &:first-child {
+                margin-left: 0;
+            }
+
+            @include rtl() {
+                margin-left: 0;
+                margin-right: $tabviewHeaderSpacing;
+
+                &:first-child {
+                    margin-right: 0;
+                }
+            }
+        }
+
+        .p-tabmenu-ink-bar {
+            display: none;
+        }
+    }
+}
+
+// card changes for tabs
+p-tabmenu {
+    display: block;
+    & + p-card {
+        .p-card {
+            border-top-right-radius: 0;
+            border-top-left-radius: 0;
+        }
+    }
+}

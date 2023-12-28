@@ -1,0 +1,45 @@
+//borders
+.border-0 { border-width: 0;}
+.border-top-0, .border-y-0 { border-top-width: 0 !important; }
+.border-right-0, .border-x-0 { border-right-width: 0 !important; }
+.border-bottom-0, .border-y-0 { border-bottom-width: 0 !important; }
+.border-left-0, .border-x-0 { border-left-width: 0 !important; }
+
+// colors
+@each $name, $color in ( "primary": $primaryColor, "accent": $accentColor, "danger": $dangerColor) {
+    .bg-#{$name} {
+        background-color: $color !important;
+    }
+    .text-#{$name} {
+        color: $color !important;
+    }
+}
+
+// scale
+// @each $num in (1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 15, 20, 25, 30) {
+@for $num from 1 to 20 {
+    $tens: floor((10+$num) / 10);
+    $remains: (10+$num) % 10;
+    .scale-#{$tens}dot#{$remains} {
+        transform: scale((10 + $num)/10);
+    }
+}
+
+@each $size in (0, 1) {
+    .flex-grow-#{$size} {
+        flex-grow: $size;
+    }
+        
+    .flex-shrink-#{$size} {
+        flex-grow: $size;
+    }
+}
+
+.p-flex-shrink-1 {
+    flex-shrink: 1;
+}
+
+.p-flex-grow-1 {
+    flex-grow: 1;
+}
+

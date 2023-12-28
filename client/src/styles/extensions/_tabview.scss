@@ -1,0 +1,30 @@
+.p-tabview {
+    .p-tabview-nav {
+
+        li {
+
+            @include rtl() {
+                margin-right: 0;
+                margin-left: $tabviewHeaderSpacing;
+            }
+
+            .p-tabview-nav-link {
+                border-top-right-radius: $borderRadius;
+                border-top-left-radius: $borderRadius;
+                font-size: $tabview-font-size;
+
+                &:focus {
+                    background-color: $primaryColor;
+                }
+            }
+        }
+
+        .p-tabview-ink-bar {
+            display: none;
+        }
+    }
+
+    .p-tabview-panels {
+        box-shadow: $cardShadow;
+    }
+}

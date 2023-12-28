@@ -1,0 +1,119 @@
+<!-- <h2>מנויים לעדכון בשכר </h2> -->
+<p-card>
+    <p-header>מנויים לעדכון בשכר</p-header>
+    <p-table #dt1 id="table" [value]="payrollReportsArray" [columns]="subscriptioncolumns" [paginator]="true"
+        [rows]="10" [showCurrentPageReport]="true"
+        currentPageReportTemplate="מציג את רשומות  {first} עד {last}, מתוך  {totalRecords} רשומות"
+        [rowsPerPageOptions]="[10,25,50]" dataKey="employeeNumber" [tableStyle]="{'min-width': '60rem'}" id="table">
+        <ng-template pTemplate="caption">
+            <div class="flex">
+                <button pButton label="נקה סינונים" class="p-button-outlined" icon="pi pi-filter-slash"
+                    (click)="dt1.clear()"></button>
+                <p-button class="mr-2" (click)="exportExcel(false)">שלח לעדכון לשכר</p-button>
+                <button style="margin-right: auto;" type="button" pButton pRipple icon="pi pi-file-excel"
+                    (click)="exportExcel(true)" class="p-button-success p-mr-2"> יצא
+                    לאקסל</button>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header" let-columns>
+            <tr>
+                <th *ngFor="let column of columns" [pSortableColumn]="column.key">{{column.value}}
+                    <p-sortIcon [field]="column.key"></p-sortIcon>
+                </th>
+            </tr>
+            <tr>
+                <th *ngFor="let column of columns">
+                    <p-columnFilter [field]="column.key" matchMode="contains" [showMenu]="false">
+                        <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                            <input [type]="column.type ?? 'text'" pInputText [ngModel]="value"
+                                (ngModelChange)="filter($event)">
+                        </ng-template>
+                    </p-columnFilter>
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-payroll let-editing="editing" let-columns="columns">
+            <tr>
+                <td *ngFor="let col of columns">
+                    <ng-container *ngIf="!col.isDate">{{payroll[col.key]}}</ng-container>
+                    <ng-container *ngIf="col.isDate">{{payroll[col.key] | date: 'dd/MM/y'}}</ng-container>
+
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</p-card>
+<!-- <span> <p-fileUpload url="https://localhost:44384/api/File/UploadFile"
+    (onUpload)="function($event, true)" chooseLabel="בחר קובץ לשליחה לשכר" uploadLabel="שלח קובץ" cancelLabel="בטל">
+   </p-fileUpload> </span> -->
+<br />
+<p-card>
+    <p-header>היסטוריית שליחות לשכר</p-header>
+    <div class="row">
+        <div class="px-3">
+            <label class="ml-2">הכנס תאריך התחלה:</label>
+            <p-calendar dataType="date" appendTo="body" [(ngModel)]="startDateValue" dateFormat="dd.mm.yy"></p-calendar>
+        </div>
+        <div class="px-3">
+            <label class="ml-2">הכנס תאריך סיום:</label>
+            <p-calendar dataType="date" appendTo="body" [(ngModel)]="endDateValue" dateFormat="dd.mm.yy"></p-calendar>
+        </div>
+        <div><button pButton type="button" label="הצג נתונים לתאריכים שנבחרו" (click)="show()"></button>
+        </div>
+    </div>
+    <br />
+    <br />
+    <div id="table1">
+        <!-- <h2> היסטוריית שליחות לשכר </h2> -->
+        <p-table #dt2 [value]="historyPayrollReportsArray" [columns]="salaryHistoryColumns"
+            [tableStyle]="{'min-width': '50rem'}" dataKey="id" editMode="row" [paginator]="true" [rows]="10"
+            [showCurrentPageReport]="true"
+            currentPageReportTemplate="מציג את רשומות  {first} עד {last}, מתוך  {totalRecords} רשומות"
+            [rowsPerPageOptions]="[10,25,50]">
+            <ng-template pTemplate="caption">
+                <div class="flex">
+                    <button pButton label="נקה סינונים" class="p-button-outlined" icon="pi pi-filter-slash"
+                        (click)="dt2.clear()"></button>
+                </div>
+            </ng-template>
+            <ng-template pTemplate="header" let-columns>
+                <tr>
+                    <th *ngFor="let column of columns" [pSortableColumn]="column.key">{{column.value}}
+                        <p-sortIcon [field]="column.key"></p-sortIcon>
+                    </th>
+                    <th>העלאת קובץ תגובה משכר</th>
+                </tr>
+                <tr>
+                    <th *ngFor="let column of columns">
+                        <p-columnFilter [field]="column.key" matchMode="contains" [showMenu]="false">
+                            <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+                                <input [type]="column.type ?? 'text'" pInputText [ngModel]="value"
+                                    (ngModelChange)="filter($event)">
+                            </ng-template>
+                        </p-columnFilter>
+                    </th>
+                    <th></th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-history let-editing="editing" let-columns="columns">
+                <tr>
+
+                    <td *ngFor="let col of columns">
+                        <ng-container *ngIf="!col.isDate && !col.isLink">{{history[col.key]}}</ng-container>
+                        <ng-container *ngIf="col.isDate">{{history[col.key] | date: 'dd/MM/y'}}</ng-container>
+                        <ng-container *ngIf="col.isLink">
+                            <a (click)="showFile(history[col.key])" class="underline"
+                                download="*.xlsx">{{history[col.key]}}</a>
+                        </ng-container>
+                    </td>
+                    <td>
+                        
+                        <p-fileUpload mode="basic" chooseLabel="בחר קובץ מהשכר"
+                             [url]="environment +'File/UploadFile'"
+                            (onUpload)="function($event,false,history)"></p-fileUpload>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+</p-card>

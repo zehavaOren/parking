@@ -1,0 +1,24 @@
+<p-table #dt1 [columns]="historyColumns"   dataKey="id" [value]="history" >
+
+    <ng-template pTemplate="caption" >
+
+        <div class="flex"> 
+     </div>
+    </ng-template>
+    <ng-template pTemplate="header" let-columns>
+        <tr>
+            <th *ngFor="let column of columns">{{column.value}} 
+     
+             </th>
+ 
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-sub let-columns="columns" let-expanded="expanded">
+        <tr>
+            <td *ngFor="let col of columns">
+                <ng-container *ngIf="!col.isDate">{{sub[col.key]}}</ng-container>
+                <ng-container *ngIf="col.isDate">{{sub[col.key] | date: 'dd/MM/y'}}</ng-container>
+            </td>
+        </tr>
+    </ng-template>
+</p-table>

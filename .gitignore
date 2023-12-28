@@ -1,0 +1,124 @@
+# See http://help.github.com/ignore-files/ for more about ignoring files.
+*.vsidx
+/.vs
+/.git
+# compiled output
+/dist
+/tmp
+/out-tsc
+# Only exists if Bazel was run
+/bazel-out
+WorkFlowOrchestrator.exe
+# dependencies
+/node_modules
+/dist
+/mockup
+# profiling files
+chrome-profiler-events*.json
+speed-measure-plugin*.json
+/bin
+
+# IDEs and editors
+/.idea
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# Build results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+bld/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.history/*
+Client/desktop/.angular/cache/*
+
+
+# misc
+/.sass-cache
+/connect.lock
+/coverage
+/libpeerconnection.log
+npm-debug.log
+yarn-error.log
+testem.log
+/typings
+
+# Non-project-specific build files:
+build.xml
+local.properties
+/gradlew
+/gradlew.bat
+/gradle
+
+# Ant builds
+ant-build
+ant-gen
+
+# Eclipse builds
+gen
+out
+
+# Gradle build artifacts
+.gradle
+.gradletasknamecache
+/build
+/CordovaLib/build
+/app/build
+gradle-app.setting
+
+# Android Studio
+.idea
+
+# System Files
+.DS_Store
+Thumbs.db
+node_modules
+Backend.core/Supervision.Core/.vs/Supervision.Core/DesignTimeBuild/.dtbcache
+Backend.core/Supervision.Core/.vs/Supervision.Core/v16/Server/sqlite3/storage.ide
+Backend.core/Supervision.Core/.vs/Supervision.Core/v16/Server/sqlite3/storage.ide-wal
+Backend.core/Supervision.Core/Dal/Dal.csproj.user
+Backend.core/Supervision.Core/.vs/Supervision.Core/DesignTimeBuild/.dtbcache
+/Backend.core/Supervision.Core/WebApi/web.config
+Backend.core/Supervision.Core/WebApi/WebApi.csproj.user
+Backend.core/Supervision.Core/WebApi/Properties/launchSettings.json
+Backend.core/Supervision.Core/SqlDbSupervision/SqlDbSupervision.dll
+Backend.core/Supervision.Core/SqlDbSupervision/SqlDbSupervision.pdb
+Backend.core/Supervision.Core/packages/*
+Backend.core/Supervision.Core/WebApi/.local-chromium/*
+backend/.vs/backend/*
+backend/Properties/.vs/*
+backend/.vs/*
+
+wwwroot
+www
+Client/desktop/package-lock.json
+Client/desktop/**/*.pack
+Client/desktop/.angular/cache/
+
+#ext
+*.dbmdl
+*.jfm
+*.css
+*.user
+*.suo
+*.pack
+*.dccache

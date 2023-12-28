@@ -1,0 +1,49 @@
+<p-card>
+
+    <form [formGroup]="form1" (ngSubmit)="saveForm()">
+
+
+
+        <div class="field col">
+            <label for="inventoryStatus">סוג המסמך</label>
+            <!-- <p-dropdown  (click)="check()"optionLabel="value" [showClear]="true" [options]="optionsList[0]" optionValue="key" -->
+            <!-- <p-dropdown optionLabel="value" [showClear]="true" [options]="optionsList[0]" placeholder="בחר סוג מסמך" optionValue="key" -->
+            <p-dropdown optionLabel="value" [showClear]="true" placeholder="בחר" [options]="optionsList[0]"
+                optionValue="key" formControlName="type">
+                <ng-template let-option pTemplate="item">
+                    <span [class]="'product-badge status-' + option.value">{{option.value}}</span>
+                </ng-template>
+            </p-dropdown>
+        </div>
+
+
+
+        <div class="field col">
+            <span class="p-float-label">
+                <input id="firstInput" class="inputs" type="text" pInputText name="" formControlName="description" />
+                <label for="float-input">תיאור מסמך </label>
+            </span>
+        </div>
+        <div>
+            <!-- <p-fileUpload mode="basic" [auto]="true" url="https://localhost:44384/api/File/UploadFile"
+            accept="application/pdf" (onSelect)="onSelect()" chooseLabel=" בחר קובץ" (onUpload)="onUpload($event)">
+        </p-fileUpload> -->
+        </div>
+
+        <div>
+            <button *ngIf="currentDoc?.id" pButton pRipple><a (click)="show(currentDoc)" class="underline">לצפיה במסמך
+                    לחץ כאן </a></button>
+            <br>
+            <br>
+            <!-- <p-fileUpload url="https://localhost:44384/api/File/UploadFile"
+         [chooseLabel]="label" (onUpload)="onUpload($event)">
+        </p-fileUpload> -->
+            <p-fileUpload [showUploadButton]='false' cancelLabel="ביטול"  #fileUpload [customUpload]="true" (uploadHandler)="uploadFile($event)" [chooseLabel]="label">
+            </p-fileUpload>
+        </div>
+        <br>
+
+        <button type="submit" pButton pRipple label="שמירה"></button>
+        <!-- <jer-commitment-document></jer-commitment-document> -->
+    </form>
+</p-card>

@@ -1,0 +1,102 @@
+// menubar
+.p-menubar {
+    border-radius: 0;
+
+    @include rtl() {
+        .p-menubar-custom,
+        .p-menubar-end {
+            margin-left: 0;
+            margin-right: auto;
+        }
+    }
+
+    .p-menuitem-link:hover {
+        .p-menuitem-text,
+        .p-submenu-icon {
+            color: #eebb2c !important;
+        }
+        &.p-menuitem-link-active {
+            .p-menuitem-text,
+            .p-submenu-icon {
+                color: #043c66 !important;
+            }
+        }
+    }
+
+    .p-menuitem-link-active {
+        background-color: $accentColor !important;
+    }
+
+    .p-submenu-list {
+        background-color: #043c66 !important;
+        border-radius: 0 0 6px 6px;
+        font-weight: normal;
+    }
+
+    .p-menuitem-link {
+        .p-menuitem-text,
+        .p-submenu-icon {
+            color: #ffff !important;
+        }
+    }
+
+    .p-menubar-root-list {
+        font-size: 1.5rem;
+        font-weight: 600;
+
+        > .p-menuitem {
+            > .p-menuitem-link {
+                &.p-menuitem-link-active {
+                    background-color: $accentColor !important;
+                    .p-menuitem-text {
+                        color: #043c66 !important;
+                    }
+                    &::before {
+                        content: "";
+                        display: block;
+                        position: absolute;
+                        width: 100%;
+                        height: 6px;
+                        right: 0;
+                        bottom: 0;
+                        z-index: 9;
+                        background-color: $horizontalMenuRootMenuitemTextActiveColor;
+                    }
+
+                    &,
+                    .p-menuitem-text {
+                        color: $horizontalMenuRootMenuitemTextActiveColor;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.end-menu {
+    display: flex;
+    vertical-align: center;
+    color: $horizontalMenuRootMenuitemTextColor;
+
+    .menu-item {
+        &__link {
+            color: inherit;
+            padding: 1rem 0.5rem;
+            color: $horizontalMenuRootMenuitemTextColor;
+            user-select: none;
+        }
+
+        &__text {
+            padding: 1rem 0;
+        }
+
+        & + .menu-item {
+            &:before {
+                margin: 0 0.5rem;
+                content: "";
+                display: inline;
+                border-right: solid 1px rgba(#999, 0.2);
+            }
+        }
+    }
+}
